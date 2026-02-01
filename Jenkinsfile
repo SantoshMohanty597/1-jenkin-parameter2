@@ -6,7 +6,6 @@ pipeline {
             name: 'ENVIRONMENT',
             choices: ['dev', 'qa', 'prod'],
             description: 'Target environment'
-            defaultValue: 'dev'
         )
     }
 
