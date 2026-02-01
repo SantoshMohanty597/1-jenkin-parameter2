@@ -25,12 +25,24 @@ pipeline {
                 script {
                     if (params.ENVIRONMENT == 'dev') {
                         echo 'Try Commit Deploying to Development environment...'
+                        build job: 'app-qa-para',
+                        parameters: [
+                            string(name: 'ENVIRONMENT', value: 'qa')
+                        ],
+                        wait: false
                         // Add your deployment commands for dev here
                     } else if (params.ENVIRONMENT == 'qa') {
                         echo 'Try Commit Deploying to QA environment...'
+                        build job: 'app-prod-para',
+                        parameters: [
+                            string(name: 'ENVIRONMENT', value: 'prod')
+                        ],
+                        wait: false
                         // Add your deployment commands for qa here
                     } else if (params.ENVIRONMENT == 'prod') {
                         echo 'Deploying to Production environment...'
+                        input message: 'Approve deployment to PRODUCTION?', ok: 'Deploy'
+
                         // Add your deployment commands for prod here
                     }
                 }
