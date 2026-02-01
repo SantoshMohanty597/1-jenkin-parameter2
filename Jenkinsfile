@@ -76,7 +76,7 @@ pipeline {
             }
             steps {
                 echo "Deploying to PROD environment is Done"
-                build job: 'app-branch-prod-para',
+                build job: 'app-prod-branch-para',
                 parameters: [
                             string(name: 'ENVIRONMENT', value: 'Branch1')
                         ],
