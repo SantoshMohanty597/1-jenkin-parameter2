@@ -65,7 +65,7 @@ pipeline {
                 expression { params.ENVIRONMENT == 'prod' }
             }
             steps {
-                input message: 'Approve deployment to PRODUCTION?', ok: 'Deploy'
+                input message: 'Approve deployment to PRODUCTION?', ok: 'Deploy To Brach Prod'
             }
         }
 
@@ -75,7 +75,12 @@ pipeline {
                 expression { params.ENVIRONMENT == 'prod' }
             }
             steps {
-                echo "Deploying to PROD environment"
+                echo "Deploying to PROD environment is Done"
+                build job: 'app-branch-prod-para',
+                parameters: [
+                            string(name: 'ENVIRONMENT', value: 'Branch1')
+                        ],
+                        wait: false
             }
         }
     }
