@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(
             name: 'ENVIRONMENT',
-            choices: ['dev', 'qa', 'prod'],
+            choices: ['Branch1'],
             description: 'Target environment'
         )
     }
@@ -29,53 +29,53 @@ pipeline {
             }
         }
 
-        /* ---------- DEV DEPLOY ---------- */
-        stage('Deploy to DEV') {
-            when {
-                expression { params.ENVIRONMENT == 'dev' }
-            }
-            steps {
-                echo "Deploying to DEV environment"
-                build job: 'app-qa-para',
-                parameters: [
-                    string(name: 'ENVIRONMENT', value: 'qa')
-                ],
-                wait: false
-            }
-        }
+        // /* ---------- DEV DEPLOY ---------- */
+        // stage('Deploy to DEV') {
+        //     when {
+        //         expression { params.ENVIRONMENT == 'dev' }
+        //     }
+        //     steps {
+        //         echo "Deploying to DEV environment"
+        //         build job: 'app-qa-para',
+        //         parameters: [
+        //             string(name: 'ENVIRONMENT', value: 'qa')
+        //         ],
+        //         wait: false
+        //     }
+        // }
 
-        /* ---------- QA DEPLOY ---------- */
-        stage('Deploy to QA') {
-            when {
-                expression { params.ENVIRONMENT == 'qa' }
-            }
-            steps {
-                echo "Deploying to QA environment"
-                build job: 'app-prod-para',
-              parameters: [
-                  string(name: 'ENVIRONMENT', value: 'prod')
-              ],
-              wait: false
-            }
-        }
+        // /* ---------- QA DEPLOY ---------- */
+        // stage('Deploy to QA') {
+        //     when {
+        //         expression { params.ENVIRONMENT == 'qa' }
+        //     }
+        //     steps {
+        //         echo "Deploying to QA environment"
+        //         build job: 'app-prod-para',
+        //       parameters: [
+        //           string(name: 'ENVIRONMENT', value: 'prod')
+        //       ],
+        //       wait: false
+        //     }
+        // }
 
         /* ---------- PROD APPROVAL ---------- */
         stage('Approve PROD Deployment') {
             when {
-                expression { params.ENVIRONMENT == 'prod' }
+                expression { params.ENVIRONMENT == 'Branch1' }
             }
             steps {
-                input message: 'Approve deployment to PRODUCTION?', ok: 'Deploy'
+                input message: 'Approve deployment to PRODUCTION?', ok: 'Branch-Deploy'
             }
         }
 
         /* ---------- PROD DEPLOY ---------- */
         stage('Deploy to PROD') {
             when {
-                expression { params.ENVIRONMENT == 'prod' }
+                expression { params.ENVIRONMENT == 'Branch1' }
             }
             steps {
-                echo "Deploying to PROD environment"
+                echo "Deploying to Branch-PROD environment"
             }
         }
     }
