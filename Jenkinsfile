@@ -51,6 +51,11 @@ pipeline {
             }
             steps {
                 echo "Deploying to QA environment"
+                build job: 'app-prod-para',
+              parameters: [
+                  string(name: 'ENVIRONMENT', value: 'prod')
+              ],
+              wait: false
             }
         }
 
