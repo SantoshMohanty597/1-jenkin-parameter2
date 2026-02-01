@@ -5,7 +5,7 @@ pipeline {
         choice(
             name: 'ENVIRONMENT',
             choices: ['Branch1'],
-            description: 'Target environment'
+            description: 'Branch-Target environment'
         )
     }
 
