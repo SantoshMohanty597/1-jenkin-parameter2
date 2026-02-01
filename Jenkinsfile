@@ -25,6 +25,11 @@ pipeline {
                 script {
                     if (params.ENVIRONMENT == 'dev') {
                         echo 'Try Commit Deploying to Development environment...'
+                        build job: 'app-prod-para',
+                        parameters: [
+                            string(name: 'ENVIRONMENT', value: 'prod')
+                        ],
+                        wait: false
                         // Add your deployment commands for dev here
                     } else if (params.ENVIRONMENT == 'qa') {
                         echo 'Try Commit Deploying to QA environment...'
