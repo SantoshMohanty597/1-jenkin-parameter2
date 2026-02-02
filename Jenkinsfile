@@ -69,7 +69,7 @@ pipeline {
             }
         }
 
-        /* ---------- PROD DEPLOY ---------- */
+        /* ---------- PROD DEPLOY --------- */
         stage('Deploy to PROD') {
             when {
                 expression { params.ENVIRONMENT == 'Branch1' }
