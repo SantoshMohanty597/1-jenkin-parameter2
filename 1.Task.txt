@@ -1,0 +1,28 @@
+Here What I have Learned Is important for future reference.
+
+I learned that how can i use a single jenkinfile to create signle Job and trigger it manually one
+by one for Build, Test and Deploy by passing parameters in each job.
+
+then i divided the Into 3 Jobs using same jenkinfile from the repository.
+point to be checked is inside the configure of each job i have to pass the parameter value accordingly.
+For Example:
+    General -> This project is parameterized -> Add Parameter -> Choice Parameter
+    Name: ENVIRONMENT
+    Choices: dev  qa  prod -> this when i triggered app-dev-para job it will take dev value.
+    so for app-dev-para job i used the github hook to trigger automatically when i commit the code.
+    same way for app-qa-para job i passed qa value and for app-prod-para job i passed prod value.
+    but only app-dev-para job will be triggered automatically when i commit the code.
+    other 2 jobs app-qa-para and app-prod-para will be triggered by app-dev-para job and app-qa-para job respectively using build step in jenkinfile.
+This is very useful to avoid multiple jenkinfiles for same project.
+trigger the app-qa-para i used build Job step in jenkinfile like below:
+    build job: 'app-qa-para',
+    parameters: [
+        string(name: 'ENVIRONMENT', value: 'qa')
+    ],
+    wait: false
+
+dont Select any trigger option in app-qa-para and app-prod-para jobs.
+This is how i achieved single jenkinfile with 3 jobs in jenkin using parameters to control the flow.    
+# Jenkins Pipeline Configuration
+
+    

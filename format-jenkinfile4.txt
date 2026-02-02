@@ -1,0 +1,24 @@
+    stage('Deploy') {
+      when {
+        anyOf {
+          branch 'develop'
+          branch 'main'
+          branch pattern: "release/.*", comparator: "REGEXP"
+        }
+      }
+      steps {
+        script {
+          if (env.BRANCH_NAME == 'develop') {
+            echo 'echo Deploying to DEV'
+          }
+          if (env.BRANCH_NAME.startsWith('release/')) {
+            echo 'echo Deploying to QA'
+          }
+          if (env.BRANCH_NAME == 'main') {
+            input message: 'Approve PROD deployment'
+            echo 'echo Deploying to PROD'
+          }
+        }
+    }
+}
+
