@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     if (params.ENVIRONMENT == 'dev') {
-                        echo 'Try Commit Deploying to Development environment...'
+                        echo 'Try Commit Deploying to Development environment....'
                         build job: 'app-qa-para',
                         parameters: [
                             string(name: 'ENVIRONMENT', value: 'qa')
